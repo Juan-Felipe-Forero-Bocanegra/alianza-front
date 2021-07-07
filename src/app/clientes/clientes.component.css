@@ -1,0 +1,16 @@
+.btn-1 {
+    margin-top: 20px;
+    margin-right: 10px;
+}
+.btn-2 {
+    margin-top: 20px;
+}
+h2 {
+    color: #0d6efd; 
+    margin-top: 40px; 
+}
+table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}

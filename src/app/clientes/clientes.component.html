@@ -1,0 +1,134 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6-md">
+            <button type="button" class="btn btn-primary btn-1" data-toggle="modal" data-target="#myModal">New </button>    <button type="button" class="btn btn-primary btn-1">Export</button>  
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <form [formGroup]="shared_keyForm" (ngSubmit)="shared_keyOnSubmit()">
+                <div class="input-group">
+                    <input type="text" class="form-control btn-2" placeholder="Search shared key" formControlName="shared_key">
+                    <div class="input-group-append">
+                      <button class="btn btn-light btn-1" type="submit"  [disabled]="shared_keyForm.invalid">Search</button> 
+                    </div>
+                  </div>
+                  <span 
+                  *ngIf="shared_keyGetControl.shared_key.touched && shared_keyGetControl.shared_key.invalid" 
+                  class="text-danger"> Ingresa un shared_key válido</span>
+            </form>           
+        </div>
+        <div class="col-md-6">
+            <button type="button" class="btn btn-primary btn-2">Advanced search</button> 
+        </div>
+    </div>
+    <div class="row">
+    <div class="col-md-12">
+        <div>
+            <h2>Clientes</h2>
+        </div>
+        
+        <table class="table table-striped" style="overflow-x:auto;">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">shared_key</th>
+            <th scope="col">bussines_id</th>
+            <th scope="col">email</th>
+            <th scope="col">phone</th>
+            <th scope="col">date_added</th>  
+          </tr>
+          </thead>
+          <tbody>
+           
+          <tr *ngFor="let cliente of clientes; index as i">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>
+              {{ cliente.shared_key }}
+            </td>
+            <td>
+                {{ cliente.bussines_id }}
+            </td>
+            <td>
+                {{ cliente.email }}
+            </td>
+            <td>
+                {{ cliente.phone }}
+            </td>
+            <td>
+                {{ cliente.date_added | date:'yyyy-MM-dd' }}
+            </td>
+            <td>
+                <div class="text-center">
+                    <a (click)="onDelete(cliente.id)" [routerLink]="['/clientes']" >Eliminar</a> 
+                </div>      
+            </td>  
+          </tr>        
+          </tbody>
+        </table>
+    </div> 
+  </div>
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+          
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h2 class="modal-title">Nuevo cliente</h2>             
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form [formGroup]="clientesForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="nombre">shared_key</label>
+                        <input type="text" class="form-control" id="shared_key" placeholder="" formControlName="shared_key" [ngClass]="{ error: getControl.shared_key.dirty && getControl.shared_key.errors }">
+                        <span 
+                        *ngIf="getControl.shared_key.touched && getControl.shared_key.invalid" 
+                        class="text-danger"> Ingresa un shared_key válido</span>
+                      </div>                  
+                      <div class="form-group">
+                        <label for="bussines_id">bussines_id</label>
+                        <input type="text" class="form-control" id="bussines_id" placeholder="" formControlName="bussines_id">
+                        <span 
+                        *ngIf="getControl.bussines_id.touched && getControl.bussines_id.invalid" 
+                        class="text-danger">Ingresa un bussines_id válido</span>
+                      </div>
+                      <div class="form-group">
+                        <label for="email">email</label>
+                        <input type="email" class="form-control" id="email" placeholder="" formControlName="email">
+                        <span 
+                        *ngIf="getControl.email.touched && getControl.email.invalid" 
+                        class="text-danger">Ingresa un email válido</span>                     
+                      </div>
+                      <div class="form-group">
+                        <label for="phone">phone</label>
+                        <input type="number" class="form-control" id="phone" placeholder="" formControlName="phone">
+                        <span 
+                        *ngIf="getControl.phone.touched && getControl.phone.invalid" 
+                        class="text-danger">Ingresa un phone válido</span>
+                      </div>
+                      <br>
+                      <div class="text-center">               
+                        <button type="submit" class="btn btn-primary"   [disabled]="clientesForm.invalid" >Submit</button>
+                      </div> 
+                      <br>  
+                      <div class="text-center">
+                        <span 
+                        *ngIf="response" 
+                        class="text-danger">{{ message }}</span>
+                      </div>       
+                </form>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer"> 
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+</div>
+
